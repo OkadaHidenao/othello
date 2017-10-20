@@ -12,6 +12,8 @@
 
 #include"DirectInput.h"
 
+#include"GameState.h"
+
 //ウィンドウプロシージャ
 LRESULT CALLBACK WndPrc
 (
@@ -153,8 +155,8 @@ HRESULT MakeWindow
 	 HWND &refHWnd,	//ウィンドウの識別子
 					//正しくウィンドウの作成ができたら
 					//この変数に識別子を代入する
-	int width = 800,	//クライアント領域の幅
-	int height = 600)	//クライアント領域の高さ
+	int width = 1000,	//クライアント領域の幅
+	int height = 800)	//クライアント領域の高さ
 	//クライアント領域はウィンドウ全体から
 	//外枠やメニューの部分を除いた物と今は思っておけばOK
 {
@@ -180,7 +182,7 @@ HRESULT MakeWindow
 	(	0,						//ウィンドウ拡張スタイル
 		WC_BASIC,				//作りたいウィンドウクラス
 								//あらかじめ登録されたもの
-		_T("タイトル"),			//ウィンドウのタイトル
+		_T("オセロ"),			//ウィンドウのタイトル
 		WS_OVERLAPPEDWINDOW,	//ウィンドウのスタイル
 		CW_USEDEFAULT,			//位置x座標 デフォルトの値
 		CW_USEDEFAULT,			//位置y座標 デフォルトの値
@@ -225,7 +227,6 @@ HRESULT MakeWindow
 
 //エントリーポイント
 //プログラムの開始関数
-
 int _stdcall WinMain
    (HINSTANCE hInstance,	//プログラムを識別するハンドル
 	HINSTANCE hPrevInstance,//アプリケーションの前のインスタンスハンドル
@@ -277,17 +278,6 @@ int _stdcall WinMain
 	//レンダーステートの設定  αブレンド
 	d3d.SetRenderState(RENDERSTATE::RENDER_ALPHABLEND);
 
-	Sprite sprite;
-	sprite.SetAlpha(0.1);
-	sprite.SetSize(100, 100);
-	sprite.SetAngle(0);
-	sprite.SetPos(200, 200);
-
-	//テクスチャのインスタンスを作成
-	Texture texture;
-	texture.Load(_T("test.png"));//画像のロード
-	texture.SetDivide(2, 1);
-
 	DirectInput*pDi = DirectInput::GetInstansce();
 	pDi->Init(hWnd);
 
@@ -295,6 +285,9 @@ int _stdcall WinMain
 	//メッセージループ
 
 	MSG msg = {};
+
+	GameState gamestate;
+	gamestate.Init();
 
 	//quitメッセージが出てくるまでループを繰り返す
 	//quitメッセージは上記のウィンドウプロシージャから送信
@@ -333,36 +326,14 @@ int _stdcall WinMain
 					MB_OK);
 			}
 
-
-
-			sprite.SetAngle(sprite.GetAngle_Rad() + 0.1f);
-
-			static int dir = 1;
-			sprite.SetAlpha(sprite.GetAlpha() + (dir*0.01));
-			switch (dir)
-			{
-			case 1:
-				if (sprite.GetAlpha() >= 1)
-				{
-					dir = -1;
-				}
-				break;
-			case -1:
-				if (sprite.GetAlpha() <= 0)
-				{
-					dir = 1;
-				}
-				break;
-			}
-
 			//描画処理
 			if (SUCCEEDED(d3d.BeginScene()))
 			{
 				//バックバッファのクリア
 				d3d.ClearScreen();
 
-				//スプライトの描画
-				sprite.Draw(texture);
+				//ここに描画のクラスを呼ぶよ
+				gamestate.Main();
 
 				//描画終了の合図
 				d3d.EndScene();

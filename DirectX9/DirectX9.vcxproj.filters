@@ -50,5 +50,8 @@
     <ClInclude Include="GameState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\directx9shou-ye\DirectX9\DirectX9\Vector2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

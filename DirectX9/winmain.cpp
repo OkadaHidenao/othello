@@ -333,7 +333,7 @@ int _stdcall WinMain
 				d3d.ClearScreen();
 
 				//ここに描画のクラスを呼ぶよ
-				gamestate.Main();
+				gamestate.Update();
 
 				//描画終了の合図
 				d3d.EndScene();

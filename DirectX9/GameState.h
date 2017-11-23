@@ -11,32 +11,44 @@
 enum Sequence
 {
 	TITLE,
-	MAIN,
-	GAMEOVER,
-	GAMECLEAR
+	MAIN
+};
+
+
+enum OthelloMap
+{
+	NONE,
+	BLACK,
+	WHITE
 };
 
 class GameState
 {
 private:
-	int GameMap[MAP_MAX][MAP_MAX];
+	OthelloMap othellomap[MAP_MAX][MAP_MAX];
 
 	//スプライト
 	Sprite sprite;
 
 	//テクスチャ
-	Texture PieceTexture;
-	Texture BoadTexture;
+	Texture PieceTexture;	//黒と白
+	Texture BoadTexture;	//盤面
 
+	Sequence gameSeq;
+	
 public:
 	GameState();
 	~GameState();
 
 	void LoadSprite();
 	void LoadTexture();
-	void Init();
+	void Init();//LoadSprite関数とLoadTexture関数を格納するための関数
 
-	void SetUpGame();//ゲームの初期化の関数
+	void SetUpGame();	//ゲームの初期化の関数
+	void Update();		//ゲームの今の状態を見る関数
 
+	void Title();
 	void Main();
+
+	void draw();
 };

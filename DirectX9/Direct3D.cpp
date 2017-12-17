@@ -241,13 +241,13 @@ HRESULT  Direct3D::ClearScreen()
 	{
 		//背景のクリア色
 		//何も描画されていない状態だとこの色が一面に出る
-		D3DXCOLOR Color = D3DCOLOR_XRGB(255,255,255);
+		//D3DXCOLOR Color = D3DCOLOR_XRGB(255, 255, 255);
 
 		//Clearの実行結果を返す
 		return pDevice3D->Clear(0, NULL,
 			//クリアのターゲットとなるバッファを指定
 			D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER
-			, Color, 1.0f, 0);
+			, clearColor, 1.0f, 0);
 	}
 	else
 	{

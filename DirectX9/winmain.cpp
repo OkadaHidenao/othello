@@ -14,6 +14,9 @@
 
 #include"GameState.h"
 
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 800
+
 //ウィンドウプロシージャ
 LRESULT CALLBACK WndPrc
 (
@@ -155,8 +158,8 @@ HRESULT MakeWindow
 	 HWND &refHWnd,	//ウィンドウの識別子
 					//正しくウィンドウの作成ができたら
 					//この変数に識別子を代入する
-	int width = 1000,	//クライアント領域の幅
-	int height = 800)	//クライアント領域の高さ
+	int width = WINDOW_WIDTH,	//クライアント領域の幅
+	int height = WINDOW_HEIGHT)	//クライアント領域の高さ
 	//クライアント領域はウィンドウ全体から
 	//外枠やメニューの部分を除いた物と今は思っておけばOK
 {
@@ -289,6 +292,8 @@ int _stdcall WinMain
 	GameState gamestate;
 	gamestate.Init();
 
+	d3d.clearColor=  D3DCOLOR_XRGB(255, 255, 255);
+
 	//quitメッセージが出てくるまでループを繰り返す
 	//quitメッセージは上記のウィンドウプロシージャから送信
 	//送信の条件などはウィンドウプロシージャを確認
@@ -337,13 +342,12 @@ int _stdcall WinMain
 
 				//描画終了の合図
 				d3d.EndScene();
+
 				//バックバッファをフロントへ反映
 				d3d.Present();
 			}
 		}
 	}
-
-
 
 	return 0;
 }

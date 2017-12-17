@@ -149,4 +149,7 @@ public :
 
 	//スプライトの描画
 	void DrawSprite(Sprite& sprite,Texture& tex);
+
+
+	D3DXCOLOR clearColor;
 };

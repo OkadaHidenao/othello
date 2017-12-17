@@ -14,18 +14,26 @@ enum Sequence
 	MAIN
 };
 
+enum PlayerTurn
+{
+	SETUP,
+	BLACK_TURN,
+	WHITE_TURN,
+	RESULT
+};
 
 enum OthelloMap
 {
 	NONE,
 	BLACK,
-	WHITE
+	WHITE,
+	PUTON
 };
 
 class GameState
 {
 private:
-	OthelloMap othellomap[MAP_MAX][MAP_MAX];
+	
 
 	//スプライト
 	Sprite sprite;
@@ -33,8 +41,17 @@ private:
 	//テクスチャ
 	Texture PieceTexture;	//黒と白
 	Texture BoadTexture;	//盤面
+	Texture HUDTexture;		//どっちのターンかを描画するためのテクスチャ
+	
+	OthelloMap othellomap[MAP_MAX][MAP_MAX];
+	Sequence gameSeq=TITLE;
 
-	Sequence gameSeq;
+	PlayerTurn playerTurn=SETUP;
+
+	int othelloFlag[MAP_MAX][MAP_MAX];
+
+	int Mx, My;
+	bool pass;
 	
 public:
 	GameState();

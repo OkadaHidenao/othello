@@ -310,7 +310,7 @@ int _stdcall WinMain
 		{
 			//仮想キーメッセージを文字メッセージに変換し
 			//それをメッセージキューにポストする
-			TranslateMessage(&msg);
+			//TranslateMessage(&msg);
 
 			//メッセージの割り当て
 			//ウィンドウプロシージャでメッセージを処理
